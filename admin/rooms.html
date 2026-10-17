@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rooms — Admin</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="stylesheet" href="/admin/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">GR</span> Golden Royale admin</div>
+    <nav>
+      <a href="/admin/dashboard.html">Dashboard</a>
+      <a href="/admin/bookings.html">Bookings</a>
+      <a href="/admin/rooms.html" class="active">Rooms</a>
+      <a href="/admin/facilities.html">Facilities</a>
+      <a href="/admin/promotions.html">Promotions</a>
+      <a href="/admin/gallery.html">Gallery</a>
+      <a href="/admin/testimonials.html">Testimonials</a>
+      <a href="/admin/messages.html">Messages</a>
+      <a href="/admin/settings.html">Settings</a>
+      <a href="/admin/staff.html" data-superadmin-only>Staff Accounts</a>
+      <div class="nav-section-label">Account</div>
+      <button class="logout-btn" id="logout-btn">Log Out</button>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="topbar">
+      <div><button class="mobile-menu-btn" id="mobile-menu-btn">☰</button><h1>Rooms</h1></div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-outline" id="manage-types-btn">Manage Room Types</button>
+        <button class="btn btn-primary" id="add-room-btn">+ Add Room</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Room</th><th>Type</th><th>Price/Night</th><th>Max Guests</th><th>Units</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="rooms-body"><tr class="skeleton-row"><td colspan="7"></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="room-modal" style="display:none;">
+  <div class="modal">
+    <div class="modal-header"><h3 id="room-modal-title">Add Room</h3><button class="modal-close" id="close-room-modal">&times;</button></div>
+    <div id="room-modal-alert"></div>
+    <form id="room-form">
+      <input type="hidden" id="room-id" />
+      <div class="form-row">
+        <div class="form-group"><label for="r-name">Room name *</label><input type="text" id="r-name" required /></div>
+        <div class="form-group"><label for="r-type">Room type *</label><select id="r-type" required></select></div>
+      </div>
+      <div class="form-group"><label for="r-short">Short description</label><input type="text" id="r-short" maxlength="220" /></div>
+      <div class="form-group"><label for="r-desc">Full description *</label><textarea id="r-desc" required></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label for="r-price">Price per night (₦) *</label><input type="number" id="r-price" min="0" required /></div>
+        <div class="form-group"><label for="r-guests">Max guests *</label><input type="number" id="r-guests" min="1" required /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label for="r-bed">Bed type *</label><input type="text" id="r-bed" required /></div>
+        <div class="form-group"><label for="r-size">Room size (m²)</label><input type="number" id="r-size" min="0" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label for="r-units">Total units *</label><input type="number" id="r-units" min="1" value="1" required /></div>
+        <div class="form-group"><label for="r-featured">Featured room</label><select id="r-featured"><option value="false">No</option><option value="true">Yes</option></select></div>
+      </div>
+      <div class="form-group"><label for="r-facilities">Facilities (comma-separated)</label><input type="text" id="r-facilities" placeholder="Garden view, Private balcony" /></div>
+      <div class="form-group"><label>Amenities</label><div id="r-amenities-list" style="display:flex;gap:10px;flex-wrap:wrap;"></div></div>
+      <div class="form-group"><label for="r-images">Room images</label><input type="file" id="r-images" multiple accept="image/*" /></div>
+      <div class="thumb-row" id="existing-images"></div>
+      <button type="submit" class="btn btn-primary" style="margin-top:8px;">Save Room</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="types-modal" style="display:none;">
+  <div class="modal">
+    <div class="modal-header"><h3>Room Types</h3><button class="modal-close" id="close-types-modal">&times;</button></div>
+    <div id="types-alert"></div>
+    <form id="type-form" style="display:flex;gap:10px;margin-bottom:18px;">
+      <input type="text" id="new-type-name" placeholder="e.g. Family Room" style="flex:1;padding:10px;border:1px solid var(--stone);border-radius:5px;" required />
+      <button class="btn btn-primary" type="submit">Add</button>
+    </form>
+    <div id="types-list"></div>
+  </div>
+</div>
+
+<script src="/admin/js/admin-api.js"></script>
+<script src="/admin/js/rooms.js"></script>
+</body>
+</html>

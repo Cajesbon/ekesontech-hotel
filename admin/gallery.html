@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gallery — Admin</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="stylesheet" href="/admin/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">GR</span> Golden Royale admin</div>
+    <nav>
+      <a href="/admin/dashboard.html">Dashboard</a>
+      <a href="/admin/bookings.html">Bookings</a>
+      <a href="/admin/rooms.html">Rooms</a>
+      <a href="/admin/facilities.html">Facilities</a>
+      <a href="/admin/promotions.html">Promotions</a>
+      <a href="/admin/gallery.html" class="active">Gallery</a>
+      <a href="/admin/testimonials.html">Testimonials</a>
+      <a href="/admin/messages.html">Messages</a>
+      <a href="/admin/settings.html">Settings</a>
+      <a href="/admin/staff.html" data-superadmin-only>Staff Accounts</a>
+      <div class="nav-section-label">Account</div>
+      <button class="logout-btn" id="logout-btn">Log Out</button>
+    </nav>
+  </aside>
+  <main class="main-content">
+    <div class="topbar">
+      <div><button class="mobile-menu-btn" id="mobile-menu-btn">☰</button><h1>Gallery</h1></div>
+    </div>
+
+    <div class="card">
+      <h3>Upload images</h3>
+      <form id="upload-form">
+        <div class="form-row">
+          <div class="form-group"><label for="g-title">Title (optional)</label><input type="text" id="g-title" /></div>
+          <div class="form-group"><label for="g-category">Category</label>
+            <select id="g-category">
+              <option value="rooms">Rooms</option>
+              <option value="exterior">Exterior</option>
+              <option value="restaurant">Restaurant</option>
+              <option value="pool">Pool</option>
+              <option value="events">Events</option>
+              <option value="facilities">Facilities</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label for="g-images">Images</label><input type="file" id="g-images" multiple accept="image/*" required /></div>
+        <div id="upload-alert"></div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h3>All images</h3></div>
+      <div class="gallery-admin-grid" id="gallery-admin-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;"></div>
+    </div>
+  </main>
+</div>
+
+<script src="/admin/js/admin-api.js"></script>
+<script src="/admin/js/gallery.js"></script>
+</body>
+</html>

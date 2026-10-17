@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Promotions — Admin</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="stylesheet" href="/admin/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">GR</span> Golden Royale admin</div>
+    <nav>
+      <a href="/admin/dashboard.html">Dashboard</a>
+      <a href="/admin/bookings.html">Bookings</a>
+      <a href="/admin/rooms.html">Rooms</a>
+      <a href="/admin/facilities.html">Facilities</a>
+      <a href="/admin/promotions.html" class="active">Promotions</a>
+      <a href="/admin/gallery.html">Gallery</a>
+      <a href="/admin/testimonials.html">Testimonials</a>
+      <a href="/admin/messages.html">Messages</a>
+      <a href="/admin/settings.html">Settings</a>
+      <a href="/admin/staff.html" data-superadmin-only>Staff Accounts</a>
+      <div class="nav-section-label">Account</div>
+      <button class="logout-btn" id="logout-btn">Log Out</button>
+    </nav>
+  </aside>
+  <main class="main-content">
+    <div class="topbar">
+      <div><button class="mobile-menu-btn" id="mobile-menu-btn">☰</button><h1>Promotions</h1></div>
+      <button class="btn btn-primary" id="add-promo-btn">+ New Promotion</button>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Code</th><th>Discount</th><th>Valid</th><th>Usage</th><th>Min. Amount</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="promotions-body"><tr class="skeleton-row"><td colspan="7"></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="promo-modal" style="display:none;">
+  <div class="modal">
+    <div class="modal-header"><h3 id="promo-modal-title">New Promotion</h3><button class="modal-close" id="close-promo-modal">&times;</button></div>
+    <div id="promo-alert"></div>
+    <form id="promo-form">
+      <input type="hidden" id="promo-id" />
+      <div class="form-row">
+        <div class="form-group"><label for="p-code">Promo code *</label><input type="text" id="p-code" required style="text-transform:uppercase;" /></div>
+        <div class="form-group"><label for="p-type">Discount type *</label>
+          <select id="p-type"><option value="percentage">Percentage</option><option value="fixed">Fixed Amount</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group" id="p-percentage-group"><label for="p-percentage">Percentage (%)</label><input type="number" id="p-percentage" min="0" max="100" /></div>
+        <div class="form-group" id="p-fixed-group" style="display:none;"><label for="p-fixed">Fixed discount (₦)</label><input type="number" id="p-fixed" min="0" /></div>
+        <div class="form-group"><label for="p-min">Minimum booking amount</label><input type="number" id="p-min" min="0" value="0" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label for="p-start">Start date *</label><input type="date" id="p-start" required /></div>
+        <div class="form-group"><label for="p-end">End date *</label><input type="date" id="p-end" required /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label for="p-limit">Usage limit (0 = unlimited)</label><input type="number" id="p-limit" min="0" value="0" /></div>
+        <div class="form-group"><label for="p-active">Status</label><select id="p-active"><option value="true">Active</option><option value="false">Inactive</option></select></div>
+      </div>
+      <div class="form-group"><label for="p-desc">Description</label><input type="text" id="p-desc" /></div>
+      <button type="submit" class="btn btn-primary">Save Promotion</button>
+    </form>
+  </div>
+</div>
+
+<script src="/admin/js/admin-api.js"></script>
+<script src="/admin/js/promotions.js"></script>
+</body>
+</html>

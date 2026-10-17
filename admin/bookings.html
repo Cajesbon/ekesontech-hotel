@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bookings — Admin</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="stylesheet" href="/admin/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">GR</span> Golden Royale admin</div>
+    <nav>
+      <a href="/admin/dashboard.html">Dashboard</a>
+      <a href="/admin/bookings.html" class="active">Bookings</a>
+      <a href="/admin/rooms.html">Rooms</a>
+      <a href="/admin/facilities.html">Facilities</a>
+      <a href="/admin/promotions.html">Promotions</a>
+      <a href="/admin/gallery.html">Gallery</a>
+      <a href="/admin/testimonials.html">Testimonials</a>
+      <a href="/admin/messages.html">Messages</a>
+      <a href="/admin/settings.html">Settings</a>
+      <a href="/admin/staff.html" data-superadmin-only>Staff Accounts</a>
+      <div class="nav-section-label">Account</div>
+      <button class="logout-btn" id="logout-btn">Log Out</button>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="topbar">
+      <div><button class="mobile-menu-btn" id="mobile-menu-btn">☰</button><h1>Bookings</h1></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" style="flex-wrap:wrap;">
+        <input type="text" id="search-input" placeholder="Search by reference, name, email, phone" style="flex:1;min-width:220px;padding:10px 14px;border:1px solid var(--stone);border-radius:5px;" />
+        <select id="status-filter" style="padding:10px;border:1px solid var(--stone);border-radius:5px;">
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="checked_in">Checked In</option>
+          <option value="checked_out">Checked Out</option>
+          <option value="cancelled">Cancelled</option>
+          <option value="completed">Completed</option>
+        </select>
+        <select id="payment-filter" style="padding:10px;border:1px solid var(--stone);border-radius:5px;">
+          <option value="">All payments</option>
+          <option value="pending">Pending</option>
+          <option value="paid">Paid</option>
+          <option value="failed">Failed</option>
+          <option value="refunded">Refunded</option>
+        </select>
+        <button class="btn btn-primary" id="search-btn">Search</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Reference</th><th>Guest</th><th>Contact</th><th>Dates</th><th>Guests</th><th>Status</th><th>Payment</th><th>Total</th><th>Actions</th></tr></thead>
+          <tbody id="bookings-body"><tr class="skeleton-row"><td colspan="9"></td></tr></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="booking-modal" style="display:none;">
+  <div class="modal">
+    <div class="modal-header"><h3>Booking Details</h3><button class="modal-close" id="close-modal">&times;</button></div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script src="/admin/js/admin-api.js"></script>
+<script src="/admin/js/bookings.js"></script>
+</body>
+</html>

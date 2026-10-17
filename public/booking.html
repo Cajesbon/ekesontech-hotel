@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book Your Stay — Golden Royale Hotel</title>
+<meta name="description" content="Book a room at Golden Royale Hotel as a guest — no account or login required." />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="brand"><span class="brand-mark">GR</span><span data-hotel-name>Golden Royale Hotel</span></a>
+    <nav class="main-nav">
+      <a href="/">Home</a>
+      <a href="/rooms.html">Rooms &amp; Suites</a>
+      <a href="/facilities.html">Facilities</a>
+      <a href="/about.html">About</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/booking.html" class="btn btn-dark">Book Your Stay</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="section--tight" style="padding-top:48px;">
+  <div class="container">
+    <div class="step-tracker">
+      <div class="step active" data-step="1" id="tracker-1"><span>Select Dates</span></div>
+      <div class="step" data-step="2" id="tracker-2"><span>Select Room</span></div>
+      <div class="step" data-step="3" id="tracker-3"><span>Guest Details</span></div>
+      <div class="step" data-step="4" id="tracker-4"><span>Review &amp; Pay</span></div>
+      <div class="step" data-step="5" id="tracker-5"><span>Confirmation</span></div>
+    </div>
+
+    <!-- STEP 1: Dates -->
+    <div id="step-1" class="booking-step">
+      <div class="summary-card" style="max-width:640px;margin:0 auto;">
+        <h2 style="text-align:center;">When would you like to stay?</h2>
+        <div class="field" style="margin-bottom:16px;">
+          <label for="b-checkin">Check-in</label>
+          <input type="date" id="b-checkin" required />
+        </div>
+        <div class="field" style="margin-bottom:16px;">
+          <label for="b-checkout">Check-out</label>
+          <input type="date" id="b-checkout" required />
+        </div>
+        <div class="field" style="margin-bottom:24px;">
+          <label for="b-guests">Total guests</label>
+          <select id="b-guests">
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="5">5+ Guests</option>
+          </select>
+        </div>
+        <button id="to-step-2" class="btn btn-primary btn-block btn-lg">Continue to Room Selection</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Room selection -->
+    <div id="step-2" class="booking-step" style="display:none;">
+            <div id="selected-rooms-panel" style="max-width:640px;margin:32px auto 0;"></div>
+
+        <div style="max-width:640px;margin:24px auto 0;display:flex;gap:12px;">
+        <button class="btn btn-outline" id="back-to-1">Back</button>
+        <button class="btn btn-primary btn-block" id="to-step-3" disabled>Continue With Your Details</button>
+      </div>
+      <h2 class="text-center">Book More Rooms</h2>
+      <p class="text-center" id="dates-summary" style="margin:0 auto 32px;"></p>
+      <div class="grid grid-3" id="room-select-grid"></div>
+    
+    </div>
+
+    <!-- STEP 3: Guest details -->
+    <div id="step-3" class="booking-step" style="display:none;">
+      <div class="summary-card" style="max-width:640px;margin:0 auto;">
+        <h2>Your details</h2>
+        <p class="muted" style="margin-bottom:24px;">No account needed — we just need a few details to confirm your reservation.</p>
+        <form id="guest-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="g-name">Full name *</label>
+              <input type="text" id="g-name" required />
+            </div>
+            <div class="form-group">
+              <label for="g-email">Email address *</label>
+              <input type="email" id="g-email" required />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="g-phone">Phone number *</label>
+              <input type="tel" id="g-phone" required />
+            </div>
+            <div class="form-group">
+              <label for="g-country">Country</label>
+              <input type="text" id="g-country" placeholder="e.g. Nigeria" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="g-arrival">Estimated arrival time (optional)</label>
+            <input type="time" id="g-arrival" />
+          </div>
+          <div class="form-group">
+            <label for="g-requests">Special requests (optional)</label>
+            <textarea id="g-requests" placeholder="e.g. High floor, late check-out, dietary needs"></textarea>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:8px;">
+            <button type="button" class="btn btn-outline" id="back-to-2">Back</button>
+            <button type="submit" class="btn btn-primary btn-block">Review Booking</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- STEP 4: Review & Payment -->
+    <div id="step-4" class="booking-step" style="display:none;">
+      <div class="grid grid-2" style="max-width:900px;margin:0 auto;align-items:start;gap:32px;">
+        <div class="summary-card">
+          <h2>Booking summary</h2>
+          <div id="review-guest" style="margin-bottom:18px;"></div>
+          <div id="review-rooms"></div>
+          <div style="margin:20px 0;">
+            <div class="field" style="flex-direction:row;gap:10px;">
+              <input type="text" id="promo-input" placeholder="Promo code" style="border:1px solid var(--stone);border-radius:4px;padding:12px;flex:1;" />
+              <button type="button" id="apply-promo" class="btn btn-outline">Apply</button>
+            </div>
+            <p id="promo-message" class="form-hint" style="margin-top:8px;"></p>
+          </div>
+          <div class="summary-row"><span>Subtotal</span><span id="rv-subtotal"></span></div>
+          <div class="summary-row" id="rv-discount-row" style="display:none;"><span>Discount</span><span id="rv-discount"></span></div>
+          <div class="summary-row"><span>Taxes &amp; fees</span><span id="rv-tax"></span></div>
+          <div class="summary-row total"><span>Total</span><span id="rv-total"></span></div>
+        </div>
+        <div class="summary-card">
+          <h3>Payment</h3>
+          <p class="muted">Your booking is held for 30 minutes while you complete payment. Payment is processed securely and never marked as paid without server-side verification.</p>
+          <div id="payment-error"></div>
+          <button id="pay-btn" class="btn btn-primary btn-block btn-lg">Proceed to Payment</button>
+          <button id="back-to-3" class="btn btn-outline btn-block" style="margin-top:10px;">Back</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>&copy; <span data-hotel-year></span> Golden Royale Hotel. All rights reserved.</span>
+      <span>Developed by <a href="ekesontechconsult.com" target="_blank" rel="noopener">Ekeson Tech Consult</a>.</span>
+      <a href="/">Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/api.js"></script>
+<script src="/js/booking.js"></script>
+</body>
+</html>

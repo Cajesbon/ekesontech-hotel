@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Booking Confirmation — Golden Royale Hotel</title>
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+  @media print {
+    .site-header, .site-footer, #print-btn, #whatsapp-float, .no-print { display: none !important; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header no-print">
+  <div class="container">
+    <a href="/" class="brand"><span class="brand-mark">GR</span><span data-hotel-name>Golden Royale Hotel</span></a>
+    <nav class="main-nav">
+      <a href="/">Home</a>
+      <a href="/rooms.html">Rooms &amp; Suites</a>
+      <a href="/facilities.html">Facilities</a>
+      <a href="/about.html">About</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="section" style="padding-top:56px;">
+  <div class="container" style="max-width:760px;">
+    <div id="confirmation-content">
+      <p class="text-center muted">Confirming your booking…</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer no-print">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>&copy; <span data-hotel-year></span> Golden Royale Hotel. All rights reserved.</span>
+      <span>Developed by <a href="ekesontechconsult.com" target="_blank" rel="noopener">Ekeson Tech Consult</a>.</span>
+      <a href="/">Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/api.js"></script>
+<script src="/js/confirmation.js"></script>
+</body>
+</html>

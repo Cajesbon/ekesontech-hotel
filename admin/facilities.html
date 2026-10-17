@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Facilities — Admin</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="stylesheet" href="/admin/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">GR</span> Golden Royale admin</div>
+    <nav>
+      <a href="/admin/dashboard.html">Dashboard</a>
+      <a href="/admin/bookings.html">Bookings</a>
+      <a href="/admin/rooms.html">Rooms</a>
+      <a href="/admin/facilities.html" class="active">Facilities</a>
+      <a href="/admin/promotions.html">Promotions</a>
+      <a href="/admin/gallery.html">Gallery</a>
+      <a href="/admin/testimonials.html">Testimonials</a>
+      <a href="/admin/messages.html">Messages</a>
+      <a href="/admin/settings.html">Settings</a>
+      <a href="/admin/staff.html" data-superadmin-only>Staff Accounts</a>
+      <div class="nav-section-label">Account</div>
+      <button class="logout-btn" id="logout-btn">Log Out</button>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="topbar">
+      <div><button class="mobile-menu-btn" id="mobile-menu-btn">☰</button><h1>Facilities</h1></div>
+      <button class="btn btn-primary" id="add-facility-btn">+ Add Facility</button>
+    </div>
+
+    <div class="card">
+      <p class="form-hint" style="margin-bottom:14px;">Facilities appear on the public "Facilities" page in the order shown below (lowest display order first).</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Image</th><th>Name</th><th>Description</th><th>Order</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="facilities-body"><tr class="skeleton-row"><td colspan="6"></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="facility-modal" style="display:none;">
+  <div class="modal">
+    <div class="modal-header"><h3 id="facility-modal-title">Add Facility</h3><button class="modal-close" id="close-facility-modal">&times;</button></div>
+    <div id="facility-alert"></div>
+    <form id="facility-form">
+      <input type="hidden" id="facility-id" />
+      <div class="form-row">
+        <div class="form-group"><label for="f-name">Facility name *</label><input type="text" id="f-name" required placeholder="e.g. Swimming Pool" /></div>
+        <div class="form-group"><label for="f-icon">Icon (optional emoji)</label><input type="text" id="f-icon" placeholder="e.g. 🏊" maxlength="4" /></div>
+      </div>
+      <div class="form-group"><label for="f-description">Description *</label><textarea id="f-description" required placeholder="Describe this facility for guests"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label for="f-order">Display order</label><input type="number" id="f-order" value="0" /></div>
+        <div class="form-group"><label for="f-active">Status</label><select id="f-active"><option value="true">Active</option><option value="false">Hidden</option></select></div>
+      </div>
+      <div class="form-group"><label for="f-image">Photo (required for new facilities)</label><input type="file" id="f-image" accept="image/*" /></div>
+      <div id="f-existing-image" class="thumb-row"></div>
+      <button type="submit" class="btn btn-primary" style="margin-top:8px;">Save Facility</button>
+    </form>
+  </div>
+</div>
+
+<script src="/admin/js/admin-api.js"></script>
+<script src="/admin/js/facilities.js"></script>
+</body>
+</html>

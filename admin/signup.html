@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Request Staff Access — Golden Royale</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="stylesheet" href="/admin/css/admin.css" />
+</head>
+<body class="login-page">
+
+<div class="login-card" style="max-width:440px;">
+  <div class="brand-mark">GR</div>
+  <h2>Request Staff Access</h2>
+  <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:24px;">Submit your details below. A super admin will review and approve your account before you can sign in.</p>
+  <div id="signup-alert"></div>
+
+  <form id="signup-form">
+    <div class="form-group">
+      <label for="name">Full name</label>
+      <input type="text" id="name" required autocomplete="name" />
+    </div>
+    <div class="form-group">
+      <label for="email">Work email</label>
+      <input type="email" id="email" required autocomplete="username" />
+    </div>
+    <div class="form-group">
+      <label for="role">Role you're requesting</label>
+      <select id="role">
+        <option value="staff">Staff / Receptionist</option>
+        <option value="manager">Manager</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <div class="password-field">
+        <input type="password" id="password" required minlength="8" autocomplete="new-password" />
+        <button type="button" class="password-toggle-btn" data-toggle-for="password" aria-label="Show password">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <span class="form-hint">At least 8 characters.</span>
+    </div>
+    <div class="form-group">
+      <label for="confirm-password">Confirm password</label>
+      <div class="password-field">
+        <input type="password" id="confirm-password" required minlength="8" autocomplete="new-password" />
+        <button type="button" class="password-toggle-btn" data-toggle-for="confirm-password" aria-label="Show password">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;">Submit Request</button>
+  </form>
+  <p class="login-footer-link">Already approved? <a href="/admin/login.html">Sign in</a></p>
+</div>
+
+<script src="/admin/js/password-toggle.js"></script>
+<script>
+document.getElementById('signup-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const alertEl = document.getElementById('signup-alert');
+  alertEl.innerHTML = '';
+
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+  if (password !== confirmPassword) {
+    alertEl.innerHTML = '<div class="alert alert-error">Passwords do not match.</div>';
+    return;
+  }
+
+  const payload = {
+    name: document.getElementById('name').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    password,
+    role: document.getElementById('role').value
+  };
+
+  try {
+    const res = await fetch('/api/admin/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok || data.success === false) throw new Error(data.message || 'Could not submit request.');
+    document.getElementById('signup-form').style.display = 'none';
+    alertEl.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+  } catch (err) {
+    alertEl.innerHTML = `<div class="alert alert-error">${err.message}</div>`;
+  }
+});
+</script>
+</body>
+</html>
