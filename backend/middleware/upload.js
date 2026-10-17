@@ -60,7 +60,11 @@
 
 const multer = require('multer');
 const path = require('path');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+// Safely require multer-storage-cloudinary handling both default and named exports
+const cloudinaryStorageModule = require('multer-storage-cloudinary');
+const CloudinaryStorage = cloudinaryStorageModule.CloudinaryStorage || cloudinaryStorageModule;
+
 const { cloudinary, isCloudinaryConfigured } = require('../config/cloudinary');
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
@@ -72,11 +76,8 @@ function fileFilter(req, file, cb) {
   cb(null, true);
 }
 
-// Use Cloudinary in production when configured; otherwise fall back to
-// local disk storage under /backend/uploads so the app still works for
-// local development without external credentials.
 let storage;
-if (isCloudinaryConfigured()) {
+if (isCloudinaryConfigured() && typeof CloudinaryStorage === 'function') {
   storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
@@ -101,14 +102,6 @@ const upload = multer({
   limits: { fileSize: 8 * 1024 * 1024, files: 12 }
 });
 
-// IMPORTANT: multer's file object shape differs by storage backend.
-// - Cloudinary storage sets `file.path` to the final hosted (secure) URL —
-//   safe to use directly as an <img src>.
-// - Local disk storage sets `file.path` to a real filesystem path, which is
-//   NOT a URL the browser can load. For local storage we must build the URL
-//   ourselves from the public "/uploads" static route instead.
-// Every controller that saves an uploaded image's URL must use this helper
-// rather than reading `file.path` directly.
 function fileUrl(file) {
   return isCloudinaryConfigured() ? file.path : `/uploads/${file.filename}`;
 }
